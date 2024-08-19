@@ -9,7 +9,7 @@ ARG USERNAME
 ARG RAILS_V
 
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libvips pkg-config
+    apt-get install --no-install-recommends -y build-essential git libvips pkg-config curl unzip
 
 # install gem pg dependencies
 RUN apt-get install libpq5 libpq-dev
@@ -21,6 +21,10 @@ RUN chown -R ${USERNAME}:${USERNAME} /rails_app
 
 USER ${USERNAME}:${USERNAME}
 
+# Javascript run time
+RUN curl -fsSL https://bun.sh/install | bash
+ENV PATH="/home/${USERNAME}/.bun/bin:$PATH"
+
 WORKDIR /rails_app
 
 # save the bundled gems locally on the project directory
@@ -30,6 +34,5 @@ ENV BUNDLE_PATH="./_bundle"
 # by default documentation is not installed
 RUN gem install 'bundler' \
                 "rails:${RAILS_V}"
-
 
 CMD ["/bin/bash"]
