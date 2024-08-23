@@ -23,3 +23,4 @@ I will implement the following features:
   - [ ] Check trackings
 - [ ] Webhooks
   - [ ] Send tracking data to a link
+- [ ] Launch own mail SMTP mail server
