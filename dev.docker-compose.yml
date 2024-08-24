@@ -1,21 +1,23 @@
 # BUILD the image
-  # sudo docker build --build-arg USERNAME=$(whoami) --build-arg RAILS_V=7.2 -t mailmarketing -f dev.Dockerfile .
+# sudo docker build --build-arg USERNAME=$(whoami) --build-arg RAILS_V=7.2 -t mailmarketing -f dev.Dockerfile .
 # Start rails application
-  # sudo docker compose -f dev.docker-compose.yml up
+# sudo docker compose -f dev.docker-compose.yml up
 # Enter into container to exec rails commands
-  # sudo docker compose -f dev.docker-compose.yml exec rails_app bash
+# sudo docker compose -f dev.docker-compose.yml exec rails_app bash
 ##OR##
-  # sudo docker compose -f dev.docker-compose.yml exec rails_app rails db:migrate
+# sudo docker compose -f dev.docker-compose.yml exec rails_app rails db:migrate
 
-# Create alias to write less...
-  # alias _dc='sudo docker compose -f dev.docker-compose.yml'
-  # alias _dcrails='sudo docker compose -f dev.docker-compose.yml exec rails_app rails'
+# Usefull alias in .bashrc_aliases
+# alias _dc='docker compose -f dev.docker-compose.yml'
+# alias _dce='docker compose -f dev.docker-compose.yml exec rails_app'
+# alias _dc_debug='_dc up -d && _dc attach rails_app'
+
 volumes:
   main_db_data:
 services:
   rails_app:
     image: mailmarketing
-    command: bin/rails server -b "0.0.0.0"
+    command: "rails server -b 0.0.0.0"
     volumes:
       - .:/rails_app
     ports:
@@ -23,12 +25,14 @@ services:
     environment:
       - RAILS_ENV=development
       - EXECJS_RUNTIME=Bun
+    stdin_open: true
+    tty: true
   main_db:
     image: postgres
     volumes:
-     - main_db_data:/var/lib/postgresql/data
+      - main_db_data:/var/lib/postgresql/data
     ports:
-     - 15432:5432
+      - 15432:5432
     environment:
       - POSTGRES_USER=myuser
       - POSTGRES_PASSWORD=mypassword
