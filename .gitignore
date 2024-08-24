@@ -6,7 +6,6 @@
 
 # Ignore bundler config.
 /.bundle
-/_bundle
 
 # Ignore all environment files (except templates).
 /.env*
@@ -34,3 +33,10 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+/config/credentials/development.key
+
+
+# This app ignores
+/_bundle
+!/.env.DEMO

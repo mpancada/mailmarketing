@@ -23,5 +23,16 @@ module Mailmarketing
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.generators do |g|
+      g.helper false
+    end
+
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      address: ENV["rails_app_STMP_SETTINGS_ADDRESS"],
+      port: ENV["rails_app_STMP_SETTINGS_PORT"],
+      user_name: ENV["rails_app_STMP_SETTINGS_USER_NAME"],
+      password: ENV["rails_app_STMP_SETTINGS_PASSWORD"]
+    }
   end
 end
