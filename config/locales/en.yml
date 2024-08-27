@@ -4,3 +4,8 @@
 
 en:
   enter_your_email_and_password: "Enter your email address and password to access your account"
+  login: "Log in"
+  sign_up: "Sign up"
+  forgot_your_password: "Forgot your password?"
+  didnt_receive_confirmation_instructions: "Didn't receive confirmation instructions?"
+  dint_receive_unlock_instructions: "Didn't receive unlock instructions?"
